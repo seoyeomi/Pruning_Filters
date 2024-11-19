@@ -47,6 +47,7 @@ Our work replicates and extends this methodology using LightweightVGG16, with a 
 ### 4.1 Accuracy vs. Pruning Ratio
 Results:
 Layer-wise accuracy changes as pruning ratios increase, visualized through tables and graphs.
+![pruning_layer](https://github.com/user-attachments/assets/e5552baa-7c31-47e9-9c16-bfd27f4f0864)
 
 Observations:
 Initial pruning (10%–30%) causes minor accuracy drops.
@@ -66,6 +67,8 @@ FLOPs and parameter counts decrease linearly with pruning ratio.
 * L1-norm based structured pruning was successfully implemented on LightweightVGG16.
 * A 50% pruning ratio reduced FLOPs by ~50% (40.23 MMac) while maintaining acceptable accuracy (accuracy drop within 2%).
 * Retraining proved effective in restoring accuracy, making pruned models viable for resource-constrained environments.
+![pruning_layer_retrain](https://github.com/user-attachments/assets/2b3fc038-6e43-49ac-ab71-e70d83409d75)
+
 
 ### 5.2 Future Work
 * Extend experiments to larger datasets (e.g., ImageNet) and other architectures (e.g., ResNet, EfficientNet).
