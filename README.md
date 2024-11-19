@@ -12,7 +12,6 @@ This study aims to:
 * Analyze the impact of pruning on computational cost (FLOPs), parameter count, and accuracy.  
 * Explore retraining as a means of recovering the accuracy of pruned models and propse an optimized lightweight version.  
 
------
 
 ## 2. Related Works
 * Structured Pruning: This technique removes entire filters, channels, or other model structures to reduce computational complexity without introducing irregularities in the model architecture.  
@@ -22,4 +21,60 @@ This study aims to:
 ### key Contribution: 
 Our work replicates and extends this methodology using LightweightVGG16, with a focus on detailed analysis of FLOPs, parameters, and accuracy changes across pruning ratios.
 
------
+
+## 3. Methodology
+### 3.1 Experimental Setup
+* Model : LightWeightVGG16
+* Dataset : CIFAR-10 (10 classes, 32x32 resolution)
+* Framework : PyTorch
+* Metrics: FLOPs(measured using ptflops), Parameters(counted via PyTorch utilities), Accuracy(Top-1 Accuracy on the test set)
+
+### 3.2 Pruning Workflow
+1. Filter Importance Calculation:
+   * The L1-norm of filter weights is computed to determine their relative importance.
+
+2. Pruning Ratios:
+   * Incrementally prune 10% to 90% of filters in steps of 10%.
+
+4. Retraining:
+   * Retrain pruned models for 1–5 epochs on CIFAR-10 using SGD optimizer and CrossEntropy loss.
+
+5. Evaluation:
+   * Compare pruned and retrained models in terms of FLOPs, parameter count, and accuracy.
+  
+
+## 4. Results and Analysis
+### 4.1 Accuracy vs. Pruning Ratio
+Results:
+Layer-wise accuracy changes as pruning ratios increase, visualized through tables and graphs.
+
+Observations:
+Initial pruning (10%–30%) causes minor accuracy drops.
+Significant degradation occurs beyond 50% pruning.
+
+### 4.2 FLOPs and Parameter Count
+Results:
+Pre- and post-pruning comparisons of computational cost and model size.
+
+Observations:
+FLOPs and parameter counts decrease linearly with pruning ratio.
+50% pruning achieves a balance between model size reduction and acceptable accuracy.
+
+
+## 5. Conclustion and Future Work
+### 5.1 Conclusion
+* L1-norm based structured pruning was successfully implemented on LightweightVGG16.
+* A 50% pruning ratio reduced FLOPs by ~50% (40.23 MMac) while maintaining acceptable accuracy (accuracy drop within 2%).
+* Retraining proved effective in restoring accuracy, making pruned models viable for resource-constrained environments.
+
+### 5.2 Future Work
+* Extend experiments to larger datasets (e.g., ImageNet) and other architectures (e.g., ResNet, EfficientNet).
+* Explore real-world deployment with hardware optimization.
+* Investigate combinations of structured pruning with techniques like knowledge distillation.
+
+
+## 6. References
+* He, Y., Zhang, X., & Sun, J. (2017). "Pruning Filters for Efficient ConvNets." International Conference on Learning Representations (ICLR).
+
+
+
